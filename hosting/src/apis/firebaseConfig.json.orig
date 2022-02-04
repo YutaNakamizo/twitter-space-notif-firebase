@@ -1,0 +1,10 @@
+{
+  "apiKey": "<API Key>",
+  "authDomain": "<Auth Domain>",
+  "projectId": "<Project ID>",
+  "storageBucket": "<Storage Bucket>",
+  "messagingSenderId": "<Messaging Sender ID>",
+  "appId": "<App ID>",
+  "measurementId": "<Measurement ID>"
+}
+

@@ -1,0 +1,13 @@
+[
+  {
+    "value": "discord-webhook",
+    "label": "Discord (Webhook)",
+    "sampleText": "サークル Discord サーバ"
+  },
+  {
+    "value": "json",
+    "label": "JSON (開発者向け)",
+    "sampleText": "自作 bot 用"
+  }
+]
+

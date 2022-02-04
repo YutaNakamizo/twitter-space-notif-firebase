@@ -67,3 +67,4 @@ node_modules/
 
 # Firebase project config
 .firebaserc
+firebase.json

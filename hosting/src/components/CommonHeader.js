@@ -35,14 +35,12 @@ export const CommonHeader = ({
       >
         <Box
         >
-          <Box
-            component="img"
-            display="block"
-            src="/images/logo_black.png"
-            sx={{
-              height: theme => theme.spacing(4),
-            }}
-          />
+          <Typography
+            component="div"
+            variant="h6"
+          >
+            Admin - TWSpace Notif
+          </Typography>
         </Box>
 
         <Box

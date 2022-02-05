@@ -12,6 +12,10 @@ import {
 } from '@mui/material';
 import { DestFormOptionsDiscordWebhook } from '~/components/DestFormOptionsDiscordWebhook';
 import { DestFormOptionsJSON } from '~/components/DestFormOptionsJSON';
+import { DestFormTargetUsernames } from '~/components/DestFormTargetUsernames';
+import {
+  listAcceptableTargetUsernames,
+} from '~/apis/backend';
 
 const destOptions = require('~/destOptions');
 
@@ -22,6 +26,7 @@ export const DestForm = ({
     label: '',
     destIndex: 0,
     destDetails: undefined,
+    targetUsernames: [],
   },
   ...props
 }) => {
@@ -32,12 +37,25 @@ export const DestForm = ({
     valid: false,
     values: initialValue.destDetails,
   });
+  const [ targetUsernames, setTargetUsernames ] = useState({
+    changed: false,
+    valid: false,
+    values: initialValue.targetUsernames,
+  });
+
+  const [ acceptableTargetUsernames, setAcceptableTargetUsernames ] = useState();
+  useEffect(() => {
+    listAcceptableTargetUsernames().then(_acceptableTargetUsernames => {
+      setAcceptableTargetUsernames(_acceptableTargetUsernames);
+    });
+  }, []);
   
   const [ labelError, setLabelError ] = useState(null);
   const validate = ({
     label,
     destIndex,
     destDetails,
+    targetUsernames,
   }) => {
     const result = {
       changed: false,
@@ -48,6 +66,7 @@ export const DestForm = ({
       label !== initialValue.label
       || destIndex !== initialValue.destIndex
       || destDetails?.changed
+      || targetUsernames?.changed
     ) {
       result.changed = true;
     }
@@ -55,6 +74,7 @@ export const DestForm = ({
     const labelIsValid = label.trim() !== '';
     const destIndexIsValid = -1 < destIndex && destIndex < destOptions.length;
     const destDetailsIsValid = destDetails?.valid;
+    const targetUsernamesIsValid = targetUsernames?.valid;
 
     if(labelIsValid) {
       setLabelError(null);
@@ -67,6 +87,7 @@ export const DestForm = ({
       labelIsValid
       && destIndexIsValid
       && destDetailsIsValid
+      && targetUsernamesIsValid
     ) {
       result.valid = true;
     }
@@ -82,6 +103,7 @@ export const DestForm = ({
       label,
       destIndex,
       destDetails,
+      targetUsernames,
     });
 
     onChange({
@@ -91,12 +113,14 @@ export const DestForm = ({
         label,
         dest: destOptions[destIndex].value,
         destDetails: destDetails.values,
+        targetUsernames: targetUsernames.values,
       }
     });
   }, [
     label,
     destIndex,
     destDetails,
+    targetUsernames,
   ]);
 
   const [ labelTouched, setLabelTouched ] = useState(false);
@@ -201,7 +225,20 @@ export const DestForm = ({
               }
             }
           })()}
-        </Box>
+        </Box>  
+      </Box>
+      
+      <Box
+        mb={4}
+      >
+        <DestFormTargetUsernames
+          acceptableTargetUsernames={acceptableTargetUsernames}
+          initialValue={initialValue.targetUsernames}
+          onChange={setTargetUsernames}
+          disabled={
+            Boolean(disabled)
+          }
+        />
       </Box>
     </>
   );

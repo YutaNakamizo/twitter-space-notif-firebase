@@ -16,6 +16,7 @@ export const EndpointsListItem = ({
   label,
   dest,
   destDetails = {},
+  usernames: targetUsernames = [],
   createTime,
   updateTime,
   ...props
@@ -38,6 +39,7 @@ export const EndpointsListItem = ({
                     label,
                     dest,
                     destDetails,
+                    targetUsernames,
                     createTime,
                     updateTime,
                   });
@@ -56,6 +58,7 @@ export const EndpointsListItem = ({
                     label,
                     dest,
                     destDetails,
+                    targetUsernames,
                     createTime,
                     updateTime,
                   });

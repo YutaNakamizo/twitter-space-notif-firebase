@@ -36,12 +36,24 @@ export const _debugRequestWithToken = ({
   });
 };
 
+// Target users
+export const listAcceptableTargetUsernames = () => {
+  return getRequestInstance().then(request => {
+    return request({
+      method: 'get',
+      url: '/api/acceptableTargetUsernames',
+    }).then(resp => {
+      return resp.data;
+    });
+  });
+};
 
 // Endpoint
 export const registerEndpoint = ({
   label,
   dest,
   destDetails,
+  targetUsernames,
 }) => {
   return getRequestInstance().then(request => {
     console.log(label, dest, JSON.stringify(destDetails))
@@ -49,7 +61,7 @@ export const registerEndpoint = ({
       method: 'post',
       url: '/api/endpoints',
       data: {
-        usernames: [ 'kuzichaki' ],
+        usernames: targetUsernames,
         label,
         dest,
         destDetails,
@@ -75,6 +87,7 @@ export const updateEndpoint = (id, {
   label,
   dest,
   destDetails,
+  targetUsernames,
 }) => {
   return getRequestInstance().then(request => {
     console.log(id, label, dest, JSON.stringify(destDetails));
@@ -82,7 +95,7 @@ export const updateEndpoint = (id, {
       method: 'put',
       url: `/api/endpoints/${id}`,
       data: {
-        usernames: [ 'kuzichaki' ],
+        usernames: targetUsernames,
         label,
         dest,
         destDetails,

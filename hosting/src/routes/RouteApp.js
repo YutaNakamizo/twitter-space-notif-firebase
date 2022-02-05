@@ -66,6 +66,7 @@ export const RouteApp = ({
       label: endpoint.label,
       destIndex: destOptions.findIndex(d => d.value === endpoint.dest),
       destDetails: endpoint.destDetails,
+      targetUsernames: endpoint.targetUsernames,
     });
     setOpenPopup('edit');
   };
